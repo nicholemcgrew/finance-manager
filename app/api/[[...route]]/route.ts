@@ -1,40 +1,17 @@
 import { z } from "zod"
-import { zValidator } from "@hono/zod-validator";
-import { Hono } from 'hono'
-import { handle } from 'hono/vercel'
+import { zValidator } from "@hono/zod-validator"
+import { Hono } from "hono"
+import { handle } from "hono/vercel"
 
-export const runtime = 'edge';
+import authors from './authors'
+import books from './books'
 
-const app = new Hono().basePath('/api')
+export const runtime = "edge"
 
-app
-    .get('/hello', (c) => {
-  return c.json({
-    message: 'Hello Next.js!',
-  })
-})
-.get(
-    "/hello/:test",
-     (c) => {
-    const test = c.req.param("test")
+const app = new Hono().basePath("/api")
 
-    return c.json({
-        message: "hello world",
-        test: test,
-    })
-})
-.post(
-    "/",
-    zValidator("json", z.object({
-        name: z.string(),
-        userId: z.number(),
-    })),
-    (c) => {
-        const {name, userId} = c.req.valid("json")
-
-        return c.json({})
-    }
-)
+app.route("/authors", authors);
+app.route("/books", books);
 
 export const GET = handle(app)
 export const POST = handle(app)
