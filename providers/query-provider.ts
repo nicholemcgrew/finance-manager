@@ -2,7 +2,7 @@
 'use client'
 
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
-import { QueryClient, QueryClientProvider, QueryClientProviderProps } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function makeQueryClient() {
   return new QueryClient({
@@ -44,6 +44,6 @@ export function QueryProvider({ children }: Props) {
   const queryClient = getQueryClient()
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider Props client={queryClient}>{children}</QueryClientProvider>
   )
 }

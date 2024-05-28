@@ -12,9 +12,10 @@ export const useGetAccounts = () => {
                 throw new Error("Failed to fetch accounts");
             }
 
-            const { data } = await response.json()
+            const { data } = await response.json();
             return data
-        }
-    })
+        },
+    });
+    
     return query;
-}
+};
